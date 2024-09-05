@@ -20,13 +20,7 @@ const weatherData = await getWeatherData();
   return c.json({ data: weatherData});
 });
 
-//
-app.get("/:place", async (c) => {
-  const reqPlace = c.req.param("place")
-  const weatherData = await getWeatherData(); 
-    return c.json({ data: weatherData, param: reqPlace});
-});
-  
+//her mangler du get med place som id
 
 app.post("/", async (c) => {
   const body = await c.req.json<Weather>();
