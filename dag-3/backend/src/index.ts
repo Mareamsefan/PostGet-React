@@ -21,6 +21,16 @@ const weatherData = await getWeatherData();
 });
 
 //her mangler du get med place som id
+app.get("/:place", async (c) => {
+  const reqPlace = c.req.param("place");
+  const data = await getWeatherData();
+  if (!reqPlace) return c.json({ error: "Missing place" }, 400);
+  const existing = data.find(
+    (place) => place.place.toLowerCase() === reqPlace.toLowerCase()
+  );
+  if (!existing) return c.json({ error: "Place not found" }, 404);
+  return c.json({ data: existing });
+});
 
 app.post("/", async (c) => {
   const body = await c.req.json<Weather>();
